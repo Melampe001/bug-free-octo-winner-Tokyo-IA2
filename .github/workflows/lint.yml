@@ -6,9 +6,14 @@ on:
   pull_request:
     branches: [ main, Main, develop ]
 
+permissions:
+  contents: read
+
 jobs:
   python-lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v4
@@ -42,6 +47,8 @@ jobs:
 
   javascript-lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v4
@@ -63,6 +70,8 @@ jobs:
 
   markdown-lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v4

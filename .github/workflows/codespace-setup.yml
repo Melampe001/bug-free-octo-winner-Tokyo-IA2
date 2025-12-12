@@ -3,9 +3,14 @@ name: Codespace Setup
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   setup-codespace:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v4

@@ -6,9 +6,14 @@ on:
   pull_request:
     branches: [ main, Main, develop ]
 
+permissions:
+  contents: read
+
 jobs:
   backend-tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         python-version: ['3.11']
@@ -41,6 +46,8 @@ jobs:
 
   web-tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         node-version: [20.x]
@@ -77,6 +84,8 @@ jobs:
 
   android-build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - uses: actions/checkout@v4
