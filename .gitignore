@@ -55,8 +55,7 @@ venv/
 .env.*.local
 .pytest_cache/
 
-# Devcontainer / Docker
-.devcontainer/
+# Docker
 docker-compose.override.yml
 
 # Test / Coverage
@@ -65,4 +64,3 @@ htmlcov/
 
 # Misc
 *.class
-*.log
