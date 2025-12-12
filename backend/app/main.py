@@ -3,6 +3,7 @@ TokyoIA Backend - Main FastAPI Application
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI(
     title="TokyoIA API",
@@ -10,10 +11,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS
+# Configure CORS - update ALLOWED_ORIGINS in production
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
+    allow_origins=allowed_origins,  # Configure in environment variables for production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

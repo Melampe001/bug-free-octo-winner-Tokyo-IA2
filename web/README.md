@@ -41,9 +41,10 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ```
 web/
-├── pages/              # Next.js pages
-│   ├── index.tsx      # Home page
-│   └── layout.tsx     # Root layout
+├── app/               # Next.js app router
+│   ├── page.tsx      # Home page
+│   ├── layout.tsx    # Root layout
+│   └── globals.css   # Global styles
 ├── components/        # React components
 │   ├── Button.tsx     # Button component
 │   └── Header.tsx     # Header component
