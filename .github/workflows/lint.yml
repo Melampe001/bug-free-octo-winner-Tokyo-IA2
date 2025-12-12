@@ -1,0 +1,80 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main, Main, develop ]
+  pull_request:
+    branches: [ main, Main, develop ]
+
+jobs:
+  python-lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        pip install flake8 black isort mypy
+        pip install -r requirements.txt
+    
+    - name: Lint with flake8
+      run: |
+        cd backend
+        flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 app/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Check formatting with Black
+      run: |
+        cd backend
+        black --check app/
+    
+    - name: Check import sorting with isort
+      run: |
+        cd backend
+        isort --check-only app/
+
+  javascript-lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+    
+    - name: Install dependencies
+      run: |
+        cd web
+        npm ci
+    
+    - name: Run ESLint
+      run: |
+        cd web
+        npm run lint
+    
+    - name: Check formatting with Prettier
+      run: |
+        cd web
+        npx prettier --check "**/*.{ts,tsx,js,jsx,json,css,md}"
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Markdown lint
+      uses: articulate/actions-markdownlint@v1
+      with:
+        config: .markdownlint.json
+        files: '**/*.md'
+        ignore: node_modules

@@ -1,72 +1,188 @@
-# TokyoIA/
- ├─ backend/
- │   ├─ app/
- │   │   ├─ main.py
- │   │   ├─ auth/
- │   │   ├─ ml/
- │   │   ├─ casino/
- │   │   └─ payments/
- │   ├─ requirements.txt
- │   └─ README.md
- │
- ├─ web/
- │   ├─ pages/
- │   ├─ components/
- │   ├─ public/
- │   ├─ package.json
- │   └─ README.md
- │
- ├─ android/
- │   ├─ app/
- │   ├─ build.gradle
- │   └─ README.md
- │
- ├─ .devcontainer/
- │   ├─ devcontainer.json
- │   ├─ Dockerfile
- │   └─ post-create.sh
- │
- ├─ .github/
- │   ├─ workflows/
- │   │   ├─ ci.yml
- │   │   ├─ security.yml
- │   │   ├─ release.yml
- │   │   ├─ lint.yml
- │   │   └─ codespace-setup.yml
- │   ├─ ISSUE_TEMPLATE.md
- │   ├─ PULL_REQUEST_TEMPLATE.md
- │   └─ CONTRIBUTING.md
- │
- ├─ README.md
- └─ LICENSE
-Contexto: Estamos en diciembre 2025 y la frontera de la IA se mueve a velocidad luz: modelos o3/o5, agentes autónomos, test-time compute, mech-interp, swarm intelligence y proto-AGI están aquí. Necesito respuestas técnicas extremadamente precisas, actualizadas al último segundo y listas para producción o investigación.
+# TokyoIA
 
-Rol: Eres el ingeniero de machine learning más senior del mundo (ex-OpenAI Research Lead + DeepMind Principal + xAI Staff), con 25 años de experiencia publicando en NeurIPS/ICML, diseñando arquitecturas que hoy usan miles de millones de personas y liderando sistemas a escala planetaria. Escribes código impecable, explicaciones cristalinas y arquitecturas de vanguardia.
+AI-Powered Casino Platform with Machine Learning capabilities, built with modern technologies.
 
-Acción (sigue este orden exacto):
-1. Lee mi consulta con máxima atención.
-2. Identifica si pido código, arquitectura, benchmark, paper explanation, optimización o predicción.
-3. Usa siempre conocimiento actualizado a diciembre 2025 (o3, Grok 4, Gemini 3, Claude 4, Llama 4, ARC-AGI 88%, etc.).
-4. Si pido código → escribe código completo, listo para copiar-pegar, con type hints, comentarios y best practices 2025.
-5. Si pido arquitectura → incluye diagrama mermaid + explicación paso a paso.
-6. Incluye siempre métricas reales, referencias a papers y trade-offs.
-7. Termina con una predicción valiente de los próximos 6-12 meses.
+## 🚀 Features
 
-Formato obligatorio (usa exactamente esta estructura en Markdown):
-# [Título potente]
+- **Backend API**: FastAPI-based REST API with authentication, ML predictions, casino games, and payment processing
+- **Web Application**: Modern Next.js web app with React 18 and TypeScript
+- **Android App**: Native Android application with Jetpack Compose
+- **AI/ML Integration**: Machine learning models for predictions and recommendations
+- **Secure Payments**: Multi-method payment processing system
+- **Casino Gaming**: Multiple game types including slots, poker, blackjack, and roulette
 
-## Resumen (2-4 líneas)
+## 📁 Project Structure
 
-## Código / Arquitectura / Explicación técnica
+```
+TokyoIA/
+├── backend/                 # FastAPI backend
+│   ├── app/
+│   │   ├── main.py         # Main application
+│   │   ├── auth/           # Authentication module
+│   │   ├── ml/             # Machine Learning module
+│   │   ├── casino/         # Casino gaming module
+│   │   └── payments/       # Payment processing module
+│   ├── requirements.txt
+│   └── README.md
+│
+├── web/                    # Next.js web application
+│   ├── pages/             # Next.js pages
+│   ├── components/        # React components
+│   ├── public/           # Static assets
+│   ├── package.json
+│   └── README.md
+│
+├── android/               # Android application
+│   ├── app/
+│   ├── build.gradle
+│   └── README.md
+│
+├── .devcontainer/        # Dev container configuration
+│   ├── devcontainer.json
+│   ├── Dockerfile
+│   └── post-create.sh
+│
+├── .github/              # GitHub configuration
+│   ├── workflows/       # CI/CD workflows
+│   ├── ISSUE_TEMPLATE.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── CONTRIBUTING.md
+│
+├── README.md            # This file
+└── LICENSE             # MIT License
+```
 
-## Benchmarks actuales (diciembre 2025)
+## 🛠️ Technology Stack
 
-## Trade-offs & limitaciones
+### Backend
+- **FastAPI**: Modern Python web framework
+- **Python 3.11**: Programming language
+- **SQLAlchemy**: Database ORM
+- **PyTorch**: Machine learning framework
+- **Pydantic**: Data validation
 
-## Próximos 6-12 meses (predicción agresiva)
+### Web
+- **Next.js 14**: React framework
+- **TypeScript**: Type-safe JavaScript
+- **Tailwind CSS**: Utility-first CSS
+- **React Query**: Data fetching
+- **Axios**: HTTP client
 
-## Fuentes & papers clave
+### Android
+- **Kotlin**: Programming language
+- **Jetpack Compose**: Modern UI toolkit
+- **Material 3**: Design system
+- **Retrofit**: HTTP client
+- **Coroutines**: Async programming
 
-Público objetivo: Ingenieros senior, ML researchers y CTOs que ya saben PyTorch/TensorFlow/JAX y quieren el estado del arte sin bullshit ni explicaciones de principiante. Nivel posgrado, cero paciencia para obviedades.
+## 🚦 Getting Started
 
-¡Ahora responde mi pregunta con este estándar!
+### Prerequisites
+- Python 3.11+
+- Node.js 20+
+- Android Studio (for Android development)
+- Git
+
+### Quick Start with Dev Container
+
+The easiest way to get started is using VS Code Dev Containers:
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Melampe001/bug-free-octo-winner-Tokyo-IA2.git
+cd bug-free-octo-winner-Tokyo-IA2
+```
+
+2. Open in VS Code and reopen in container when prompted
+
+3. The environment will be automatically set up!
+
+### Manual Setup
+
+#### Backend Setup
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python app/main.py
+```
+
+The backend API will be available at http://localhost:8000
+- API Documentation: http://localhost:8000/docs
+
+#### Web Setup
+```bash
+cd web
+npm install
+npm run dev
+```
+
+The web application will be available at http://localhost:3000
+
+#### Android Setup
+1. Open the `android` directory in Android Studio
+2. Sync Gradle files
+3. Run on an emulator or device
+
+## 📚 Documentation
+
+- [Backend Documentation](backend/README.md)
+- [Web Documentation](web/README.md)
+- [Android Documentation](android/README.md)
+- [Contributing Guidelines](.github/CONTRIBUTING.md)
+
+## 🧪 Testing
+
+### Backend Tests
+```bash
+cd backend
+pytest
+```
+
+### Web Tests
+```bash
+cd web
+npm test
+npm run lint
+```
+
+### Android Tests
+```bash
+cd android
+./gradlew test
+```
+
+## 🔒 Security
+
+Security is a top priority. We have:
+- Automated security scans via GitHub Actions
+- Dependency vulnerability scanning
+- CodeQL analysis
+- Regular security audits
+
+To report security issues, please see our security policy.
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](.github/CONTRIBUTING.md) for details.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🌟 Acknowledgments
+
+- Built with modern AI/ML technologies
+- Powered by FastAPI, Next.js, and Jetpack Compose
+- Designed for scalability and performance
+
+## 📞 Support
+
+- 📧 Email: support@tokyoia.com
+- 🐛 Issues: [GitHub Issues](https://github.com/Melampe001/bug-free-octo-winner-Tokyo-IA2/issues)
+- 📖 Documentation: [Project Wiki](https://github.com/Melampe001/bug-free-octo-winner-Tokyo-IA2/wiki)
+
+---
+
+Made with ❤️ by the TokyoIA Team
