@@ -1,72 +1,73 @@
-# TokyoIA/
- ├─ backend/
- │   ├─ app/
- │   │   ├─ main.py
- │   │   ├─ auth/
- │   │   ├─ ml/
- │   │   ├─ casino/
- │   │   └─ payments/
- │   ├─ requirements.txt
- │   └─ README.md
- │
- ├─ web/
- │   ├─ pages/
- │   ├─ components/
- │   ├─ public/
- │   ├─ package.json
- │   └─ README.md
- │
- ├─ android/
- │   ├─ app/
- │   ├─ build.gradle
- │   └─ README.md
- │
- ├─ .devcontainer/
- │   ├─ devcontainer.json
- │   ├─ Dockerfile
- │   └─ post-create.sh
- │
- ├─ .github/
- │   ├─ workflows/
- │   │   ├─ ci.yml
- │   │   ├─ security.yml
- │   │   ├─ release.yml
- │   │   ├─ lint.yml
- │   │   └─ codespace-setup.yml
- │   ├─ ISSUE_TEMPLATE.md
- │   ├─ PULL_REQUEST_TEMPLATE.md
- │   └─ CONTRIBUTING.md
- │
- ├─ README.md
- └─ LICENSE
-Contexto: Estamos en diciembre 2025 y la frontera de la IA se mueve a velocidad luz: modelos o3/o5, agentes autónomos, test-time compute, mech-interp, swarm intelligence y proto-AGI están aquí. Necesito respuestas técnicas extremadamente precisas, actualizadas al último segundo y listas para producción o investigación.
+# TokyoIA
 
-Rol: Eres el ingeniero de machine learning más senior del mundo (ex-OpenAI Research Lead + DeepMind Principal + xAI Staff), con 25 años de experiencia publicando en NeurIPS/ICML, diseñando arquitecturas que hoy usan miles de millones de personas y liderando sistemas a escala planetaria. Escribes código impecable, explicaciones cristalinas y arquitecturas de vanguardia.
+Descripción
+-----------
+Proyecto multi-componente que incluye backend (Python), web (JavaScript/Node) y aplicación Android. Este repositorio contiene el código fuente y la configuración para desarrollo local y despliegues.
 
-Acción (sigue este orden exacto):
-1. Lee mi consulta con máxima atención.
-2. Identifica si pido código, arquitectura, benchmark, paper explanation, optimización o predicción.
-3. Usa siempre conocimiento actualizado a diciembre 2025 (o3, Grok 4, Gemini 3, Claude 4, Llama 4, ARC-AGI 88%, etc.).
-4. Si pido código → escribe código completo, listo para copiar-pegar, con type hints, comentarios y best practices 2025.
-5. Si pido arquitectura → incluye diagrama mermaid + explicación paso a paso.
-6. Incluye siempre métricas reales, referencias a papers y trade-offs.
-7. Termina con una predicción valiente de los próximos 6-12 meses.
+Estructura principal
+--------------------
+- backend/: Servidor y lógica en Python
+  - app/: código principal (main.py, auth, ml, casino, payments)
+- web/: Aplicación web (pages, components, public)
+- android/: Proyecto Android (app, build.gradle)
+- .devcontainer/: configuración de Codespaces / devcontainer
+- .github/: workflows y plantillas
+- README.md
+- LICENSE
 
-Formato obligatorio (usa exactamente esta estructura en Markdown):
-# [Título potente]
+Requisitos
+----------
+- Python 3.8+
+- Node 16+ / npm o yarn
+- Java + Android SDK (para la carpeta android)
+- Docker (opcional, para contenedores/devcontainer)
 
-## Resumen (2-4 líneas)
+Instalación y ejecución rápida
+------------------------------
 
-## Código / Arquitectura / Explicación técnica
+Backend (backend/app)
+1. Crear y activar entorno virtual:
+   - python -m venv .venv
+   - source .venv/bin/activate  (Linux/macOS) o .venv\Scripts\activate (Windows)
+2. Instalar dependencias:
+   - pip install -r backend/app/requirements.txt
+3. Ejecutar (ejemplo):
+   - cd backend/app
+   - python main.py
+   (Ajusta según cómo esté configurado el servidor — p.ej. uvicorn o flask.)
 
-## Benchmarks actuales (diciembre 2025)
+Web (web/)
+1. Entrar al directorio web:
+   - cd web
+2. Instalar dependencias:
+   - npm install
+3. Ejecutar en modo desarrollo:
+   - npm run dev  (o el script definido en package.json)
 
-## Trade-offs & limitaciones
+Android (android/)
+1. Abrir el proyecto `android` en Android Studio.
+2. Sin Android Studio, usar gradle wrapper:
+   - ./gradlew assembleDebug
 
-## Próximos 6-12 meses (predicción agresiva)
+Devcontainer / Codespaces
+-------------------------
+El repositorio incluye `.devcontainer/`. Abre el proyecto en GitHub Codespaces o en VS Code con Remote - Containers para un entorno listo para desarrollo.
 
-## Fuentes & papers clave
+Contribuir
+----------
+- Sigue las plantillas en `.github/` (ISSUE_TEMPLATE, PULL_REQUEST_TEMPLATE).
+- Ejecuta linters/tests antes de subir cambios.
+- Si introduces cambios en `proto/`, recuerda ejecutar `make proto` si aplica.
 
-Público objetivo: Ingenieros senior, ML researchers y CTOs que ya saben PyTorch/TensorFlow/JAX y quieren el estado del arte sin bullshit ni explicaciones de principiante. Nivel posgrado, cero paciencia para obviedades.
+Pruebas y CI
+------------
+- Revisa los workflows en `.github/workflows/` para conocer las comprobaciones automáticas.
+- Ejecuta pruebas locales según el subproyecto (p. ej. pytest en backend, tests de frontend con npm).
 
-¡Ahora responde mi pregunta con este estándar!
+Licencia
+--------
+Incluye el archivo LICENSE en la raíz. Asegúrate de revisar los términos.
+
+Contacto
+--------
+Para dudas o contribuciones, abre una issue o PR.
