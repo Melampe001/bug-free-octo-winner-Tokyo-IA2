@@ -71,3 +71,24 @@ Incluye el archivo LICENSE en la raíz. Asegúrate de revisar los términos.
 Contacto
 --------
 Para dudas o contribuciones, abre una issue o PR.
+
+## Deployment
+
+### Vercel Deployment
+
+The Local Premium Elite web application can be deployed to Vercel. Complete deployment documentation is available:
+
+- **[Vercel Deployment Guide](./VERCEL_DEPLOYMENT_GUIDE.md)** - Step-by-step deployment instructions
+- **[Vercel Setup Checklist](./VERCEL_SETUP_CHECKLIST.md)** - Complete setup checklist to track progress
+- **[Deployment Troubleshooting](./DEPLOYMENT_TROUBLESHOOTING.md)** - Common issues and solutions
+
+#### Quick Start
+
+1. Review the [Vercel Deployment Guide](./VERCEL_DEPLOYMENT_GUIDE.md)
+2. Set up accounts (Vercel, Supabase, Stripe)
+3. Configure environment variables using [.env.vercel](./.env.vercel) as reference
+4. Deploy from GitHub repository
+
+**Estimated deployment time:** 3-4 hours for initial setup
+
+For detailed instructions and best practices, refer to the deployment guides linked above.
