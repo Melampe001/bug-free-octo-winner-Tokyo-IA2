@@ -93,7 +93,7 @@ Complete guide for deploying the Local Premium Elite Next.js 14 application to V
 2. Click "Add New..." > "Project"
 3. Import from GitHub:
    - If first time: Click "Install Vercel" on GitHub
-   - Grant access to the `bug-free-octo-winner-Tokyo-IA2` repository
+   - Grant access to your repository
 4. Select the repository from the list
 
 ### 2.2 Configure Project Settings
