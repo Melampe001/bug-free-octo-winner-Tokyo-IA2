@@ -11,7 +11,6 @@ const nextConfig = {
   poweredByHeader: false,
   // Enable experimental features
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
   },
   // Security headers

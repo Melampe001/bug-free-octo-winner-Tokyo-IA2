@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '../supabase/server'
+import { Database } from '@/types/database'
+
+type UsersRow = Database['public']['Tables']['users']['Row']
 
 /**
  * Middleware to protect routes that require authentication
@@ -52,7 +55,9 @@ export async function withAdminAuth(
     .eq('id', user.id)
     .single()
 
-  if (!userData || userData.role !== 'admin') {
+  const typedData = userData as Pick<UsersRow, 'role'> | null
+
+  if (!typedData || typedData.role !== 'admin') {
     return NextResponse.json(
       { error: 'Forbidden - Admin access required' },
       { status: 403 }
@@ -97,13 +102,15 @@ export async function withSubscription(
     )
   }
 
+  const typedSubscriptionData = userData as Pick<UsersRow, 'subscription'>
+
   const tierLevel = {
     free: 0,
     premium: 1,
     elite: 2,
   }
 
-  const userTierLevel = tierLevel[userData.subscription as keyof typeof tierLevel]
+  const userTierLevel = tierLevel[typedSubscriptionData.subscription as keyof typeof tierLevel]
   const requiredTierLevel = tierLevel[requiredTier]
 
   if (userTierLevel < requiredTierLevel) {

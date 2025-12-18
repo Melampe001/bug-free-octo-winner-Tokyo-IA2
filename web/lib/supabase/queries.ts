@@ -1,5 +1,9 @@
 import { createClient } from './server'
 import { User, UserProfile } from '@/types'
+import { Database } from '@/types/database'
+
+type UsersRow = Database['public']['Tables']['users']['Row']
+type ProfilesRow = Database['public']['Tables']['profiles']['Row']
 
 /**
  * Get the current authenticated user
@@ -23,15 +27,17 @@ export async function getCurrentUser(): Promise<User | null> {
     return null
   }
 
+  const typedData = userData as UsersRow
+
   return {
-    id: userData.id,
-    email: userData.email,
-    name: userData.name || undefined,
-    avatar: userData.avatar || undefined,
-    role: userData.role,
-    subscription: userData.subscription,
-    createdAt: new Date(userData.created_at),
-    updatedAt: new Date(userData.updated_at),
+    id: typedData.id,
+    email: typedData.email,
+    name: typedData.name || undefined,
+    avatar: typedData.avatar || undefined,
+    role: typedData.role,
+    subscription: typedData.subscription,
+    createdAt: new Date(typedData.created_at),
+    updatedAt: new Date(typedData.updated_at),
   }
 }
 
@@ -51,12 +57,14 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
     return null
   }
 
+  const typedData = data as ProfilesRow
+
   return {
-    userId: data.user_id,
-    bio: data.bio || undefined,
-    location: data.location || undefined,
-    website: data.website || undefined,
-    socialLinks: data.social_links as any,
+    userId: typedData.user_id,
+    bio: typedData.bio || undefined,
+    location: typedData.location || undefined,
+    website: typedData.website || undefined,
+    socialLinks: typedData.social_links as UserProfile['socialLinks'],
   }
 }
 
@@ -69,7 +77,8 @@ export async function updateUserProfile(
 ): Promise<boolean> {
   const supabase = createClient()
   
-  const { error } = await supabase
+  // Using type assertion to work around Supabase SSR type inference issues
+  const { error } = await (supabase as any)
     .from('profiles')
     .upsert({
       user_id: userId,
@@ -122,7 +131,8 @@ export async function updateUserSubscription(
 ): Promise<boolean> {
   const supabase = createClient()
   
-  const { error } = await supabase
+  // Using type assertion to work around Supabase SSR type inference issues
+  const { error } = await (supabase as any)
     .from('users')
     .update({ 
       subscription,
