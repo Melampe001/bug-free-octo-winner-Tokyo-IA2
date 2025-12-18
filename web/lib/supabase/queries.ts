@@ -1,5 +1,26 @@
 import { createClient } from './server'
 import { User, UserProfile } from '@/types'
+import { Database, Json } from '@/types/database'
+
+type UsersRow = Database['public']['Tables']['users']['Row']
+type ProfilesRow = Database['public']['Tables']['profiles']['Row']
+type ProfilesInsert = Database['public']['Tables']['profiles']['Insert']
+type UsersUpdate = Database['public']['Tables']['users']['Update']
+
+/**
+ * Helper to parse social links from JSON
+ */
+function parseSocialLinks(json: Json | null): UserProfile['socialLinks'] | undefined {
+  if (!json || typeof json !== 'object' || Array.isArray(json)) {
+    return undefined
+  }
+  const obj = json as Record<string, unknown>
+  return {
+    twitter: typeof obj.twitter === 'string' ? obj.twitter : undefined,
+    github: typeof obj.github === 'string' ? obj.github : undefined,
+    linkedin: typeof obj.linkedin === 'string' ? obj.linkedin : undefined,
+  }
+}
 
 /**
  * Get the current authenticated user
@@ -23,15 +44,17 @@ export async function getCurrentUser(): Promise<User | null> {
     return null
   }
 
+  const typedData = userData as UsersRow
+
   return {
-    id: userData.id,
-    email: userData.email,
-    name: userData.name || undefined,
-    avatar: userData.avatar || undefined,
-    role: userData.role,
-    subscription: userData.subscription,
-    createdAt: new Date(userData.created_at),
-    updatedAt: new Date(userData.updated_at),
+    id: typedData.id,
+    email: typedData.email,
+    name: typedData.name || undefined,
+    avatar: typedData.avatar || undefined,
+    role: typedData.role,
+    subscription: typedData.subscription,
+    createdAt: new Date(typedData.created_at),
+    updatedAt: new Date(typedData.updated_at),
   }
 }
 
@@ -51,12 +74,14 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
     return null
   }
 
+  const typedData = data as ProfilesRow
+
   return {
-    userId: data.user_id,
-    bio: data.bio || undefined,
-    location: data.location || undefined,
-    website: data.website || undefined,
-    socialLinks: data.social_links as any,
+    userId: typedData.user_id,
+    bio: typedData.bio || undefined,
+    location: typedData.location || undefined,
+    website: typedData.website || undefined,
+    socialLinks: parseSocialLinks(typedData.social_links),
   }
 }
 
@@ -69,16 +94,20 @@ export async function updateUserProfile(
 ): Promise<boolean> {
   const supabase = createClient()
   
-  const { error } = await supabase
-    .from('profiles')
-    .upsert({
-      user_id: userId,
-      bio: profile.bio,
-      location: profile.location,
-      website: profile.website,
-      social_links: profile.socialLinks,
-      updated_at: new Date().toISOString(),
-    })
+  const profileData: ProfilesInsert = {
+    user_id: userId,
+    bio: profile.bio ?? null,
+    location: profile.location ?? null,
+    website: profile.website ?? null,
+    social_links: profile.socialLinks ?? null,
+    updated_at: new Date().toISOString(),
+  }
+  
+  // Cast to unknown first to work around Supabase SSR type inference limitation
+  // The Database type is correctly defined but SSR client returns generic types
+  const { error } = await (supabase.from('profiles') as unknown as {
+    upsert: (data: ProfilesInsert) => Promise<{ error: Error | null }>
+  }).upsert(profileData)
 
   return !error
 }
@@ -122,13 +151,16 @@ export async function updateUserSubscription(
 ): Promise<boolean> {
   const supabase = createClient()
   
-  const { error } = await supabase
-    .from('users')
-    .update({ 
-      subscription,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', userId)
+  const updateData: UsersUpdate = {
+    subscription,
+    updated_at: new Date().toISOString(),
+  }
+  
+  // Cast to unknown first to work around Supabase SSR type inference limitation
+  // The Database type is correctly defined but SSR client returns generic types
+  const { error } = await (supabase.from('users') as unknown as {
+    update: (data: UsersUpdate) => { eq: (column: string, value: string) => Promise<{ error: Error | null }> }
+  }).update(updateData).eq('id', userId)
 
   return !error
 }
