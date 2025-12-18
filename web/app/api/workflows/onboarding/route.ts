@@ -3,7 +3,17 @@ import { userOnboardingWorkflow } from '@/lib/workflows/user-onboarding';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch (error) {
+      return NextResponse.json(
+        { error: 'Invalid JSON in request body' },
+        { status: 400 }
+      );
+    }
+    
+    const { email } = body;
     
     if (!email) {
       return NextResponse.json(

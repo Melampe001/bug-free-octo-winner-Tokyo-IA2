@@ -7,7 +7,13 @@ export class FatalError extends Error {
   }
 }
 
-// Workflow function para crear usuario
+// Helper function to validate email format
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Workflow function to create user
 async function createUser(email: string) {
   "use step"; 
   console.log(`Creating user with email: ${email}`);
@@ -15,7 +21,7 @@ async function createUser(email: string) {
   return { id: crypto.randomUUID(), email };
 }
 
-// Workflow function para enviar email de bienvenida
+// Workflow function to send welcome email
 async function sendWelcomeEmail(user: { id: string; email: string }) {
   "use step"; 
   console.log(`Sending welcome email to user: ${user.id}`);
@@ -25,17 +31,17 @@ async function sendWelcomeEmail(user: { id: string; email: string }) {
   }
 }
 
-// Workflow function para enviar email de onboarding
+// Workflow function to send onboarding email
 async function sendOnboardingEmail(user: { id: string; email: string }) {
   "use step"; 
-  if (!user.email.includes("@")) {
+  if (!isValidEmail(user.email)) {
     // To skip retrying, throw a FatalError instead
     throw new FatalError("Invalid Email");
   }
   console.log(`Sending onboarding email to user: ${user.id}`);
 }
 
-// Workflow principal que orquesta el proceso completo
+// Main workflow that orchestrates the complete process
 export async function userOnboardingWorkflow(email: string) {
   "use workflow";
   
