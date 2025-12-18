@@ -121,8 +121,8 @@ User ← Prediction with Confidence Score
 ### Android
 - **Language**: Kotlin
 - **Build System**: Gradle
-- **Architecture**: MVVM pattern (expected)
-- **DI Framework**: Hilt/Dagger (expected)
+- **Architecture**: MVVM pattern (recommended for implementation)
+- **DI Framework**: Hilt/Dagger (recommended for implementation)
 
 ### Infrastructure
 - **Database**: Supabase (PostgreSQL)

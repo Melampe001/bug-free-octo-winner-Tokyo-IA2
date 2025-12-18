@@ -114,9 +114,9 @@ curl -X POST http://localhost:8000/auth/login \
 ```
 
 **Development Notes**:
-- TODO: Implement actual JWT token generation
-- TODO: Add password hashing with bcrypt
-- TODO: Integrate with Supabase authentication
+- Current implementation provides basic endpoint structure
+- Full JWT token generation and password hashing to be implemented
+- Supabase authentication integration planned
 
 ### Payment Module
 
@@ -166,10 +166,9 @@ curl http://localhost:8000/payments/balance
 ```
 
 **Development Notes**:
-- TODO: Integrate with Stripe API
-- TODO: Add transaction validation
-- TODO: Implement fraud detection
-- TODO: Add withdrawal limits and verification
+- Current implementation provides endpoint structure and models
+- Stripe API integration, transaction validation, and fraud detection planned
+- Withdrawal limits and verification to be added in future updates
 
 ### Casino Module
 
@@ -216,8 +215,9 @@ curl http://localhost:8000/casino/games
 
 **Game Logic**:
 - Each game type has minimum and maximum bets
-- Results are randomly generated (TODO: implement actual game logic)
-- Winnings are calculated based on game odds
+- Results are randomly generated in current implementation
+- Full game logic and odds calculation to be implemented
+- Winnings calculated based on bet amount
 
 ### Machine Learning Module
 
@@ -257,10 +257,9 @@ curl -X POST http://localhost:8000/ml/predict \
 ```
 
 **Development Notes**:
-- TODO: Load actual ML models (PyTorch/scikit-learn)
-- TODO: Add model versioning
-- TODO: Implement model caching
-- TODO: Add batch prediction support
+- Current implementation provides endpoint structure
+- ML model loading (PyTorch/scikit-learn) to be implemented
+- Model versioning, caching, and batch prediction support planned
 
 ### Backend Dependencies
 

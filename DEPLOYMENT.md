@@ -139,10 +139,10 @@ cd backend
 pip install -r requirements.txt
 ```
 
-2. **Run Migrations** (if applicable):
+2. **Run Migrations** (when implemented):
 ```bash
-# Future: Database migrations
-alembic upgrade head
+# Database migrations (to be implemented with Alembic)
+# alembic upgrade head
 ```
 
 3. **Start Server**:
