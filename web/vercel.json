@@ -29,5 +29,10 @@
       "destination": "/"
     }
   ],
-  "crons": []
+  "crons": [
+    {
+      "path": "/api/cron/workflows",
+      "schedule": "0 0 * * *"
+    }
+  ]
 }
