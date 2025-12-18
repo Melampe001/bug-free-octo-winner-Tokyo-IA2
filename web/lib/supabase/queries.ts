@@ -1,9 +1,26 @@
 import { createClient } from './server'
 import { User, UserProfile } from '@/types'
-import { Database } from '@/types/database'
+import { Database, Json } from '@/types/database'
 
 type UsersRow = Database['public']['Tables']['users']['Row']
 type ProfilesRow = Database['public']['Tables']['profiles']['Row']
+type ProfilesInsert = Database['public']['Tables']['profiles']['Insert']
+type UsersUpdate = Database['public']['Tables']['users']['Update']
+
+/**
+ * Helper to parse social links from JSON
+ */
+function parseSocialLinks(json: Json | null): UserProfile['socialLinks'] | undefined {
+  if (!json || typeof json !== 'object' || Array.isArray(json)) {
+    return undefined
+  }
+  const obj = json as Record<string, unknown>
+  return {
+    twitter: typeof obj.twitter === 'string' ? obj.twitter : undefined,
+    github: typeof obj.github === 'string' ? obj.github : undefined,
+    linkedin: typeof obj.linkedin === 'string' ? obj.linkedin : undefined,
+  }
+}
 
 /**
  * Get the current authenticated user
@@ -64,7 +81,7 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
     bio: typedData.bio || undefined,
     location: typedData.location || undefined,
     website: typedData.website || undefined,
-    socialLinks: typedData.social_links as UserProfile['socialLinks'],
+    socialLinks: parseSocialLinks(typedData.social_links),
   }
 }
 
@@ -77,17 +94,20 @@ export async function updateUserProfile(
 ): Promise<boolean> {
   const supabase = createClient()
   
-  // Using type assertion to work around Supabase SSR type inference issues
-  const { error } = await (supabase as any)
-    .from('profiles')
-    .upsert({
-      user_id: userId,
-      bio: profile.bio,
-      location: profile.location,
-      website: profile.website,
-      social_links: profile.socialLinks,
-      updated_at: new Date().toISOString(),
-    })
+  const profileData: ProfilesInsert = {
+    user_id: userId,
+    bio: profile.bio ?? null,
+    location: profile.location ?? null,
+    website: profile.website ?? null,
+    social_links: profile.socialLinks ?? null,
+    updated_at: new Date().toISOString(),
+  }
+  
+  // Cast to unknown first to work around Supabase SSR type inference limitation
+  // The Database type is correctly defined but SSR client returns generic types
+  const { error } = await (supabase.from('profiles') as unknown as {
+    upsert: (data: ProfilesInsert) => Promise<{ error: Error | null }>
+  }).upsert(profileData)
 
   return !error
 }
@@ -131,14 +151,16 @@ export async function updateUserSubscription(
 ): Promise<boolean> {
   const supabase = createClient()
   
-  // Using type assertion to work around Supabase SSR type inference issues
-  const { error } = await (supabase as any)
-    .from('users')
-    .update({ 
-      subscription,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', userId)
+  const updateData: UsersUpdate = {
+    subscription,
+    updated_at: new Date().toISOString(),
+  }
+  
+  // Cast to unknown first to work around Supabase SSR type inference limitation
+  // The Database type is correctly defined but SSR client returns generic types
+  const { error } = await (supabase.from('users') as unknown as {
+    update: (data: UsersUpdate) => { eq: (column: string, value: string) => Promise<{ error: Error | null }> }
+  }).update(updateData).eq('id', userId)
 
   return !error
 }

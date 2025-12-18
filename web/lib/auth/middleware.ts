@@ -5,6 +5,30 @@ import { Database } from '@/types/database'
 type UsersRow = Database['public']['Tables']['users']['Row']
 
 /**
+ * Type guard to validate user role data from database
+ */
+function isValidRoleData(data: unknown): data is Pick<UsersRow, 'role'> {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'role' in data &&
+    (data.role === 'user' || data.role === 'admin')
+  )
+}
+
+/**
+ * Type guard to validate user subscription data from database
+ */
+function isValidSubscriptionData(data: unknown): data is Pick<UsersRow, 'subscription'> {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'subscription' in data &&
+    (data.subscription === 'free' || data.subscription === 'premium' || data.subscription === 'elite')
+  )
+}
+
+/**
  * Middleware to protect routes that require authentication
  */
 export async function withAuth(
@@ -55,9 +79,9 @@ export async function withAdminAuth(
     .eq('id', user.id)
     .single()
 
-  const typedData = userData as Pick<UsersRow, 'role'> | null
-
-  if (!typedData || typedData.role !== 'admin') {
+  // Runtime validation for type safety
+  const roleData = userData as { role?: string } | null
+  if (!roleData || roleData.role !== 'admin') {
     return NextResponse.json(
       { error: 'Forbidden - Admin access required' },
       { status: 403 }
@@ -95,14 +119,14 @@ export async function withSubscription(
     .eq('id', user.id)
     .single()
 
-  if (!userData) {
+  // Runtime validation for type safety
+  const subscriptionData = userData as { subscription?: string } | null
+  if (!subscriptionData || !isValidSubscriptionData(subscriptionData)) {
     return NextResponse.json(
       { error: 'User not found' },
       { status: 404 }
     )
   }
-
-  const typedSubscriptionData = userData as Pick<UsersRow, 'subscription'>
 
   const tierLevel = {
     free: 0,
@@ -110,7 +134,7 @@ export async function withSubscription(
     elite: 2,
   }
 
-  const userTierLevel = tierLevel[typedSubscriptionData.subscription as keyof typeof tierLevel]
+  const userTierLevel = tierLevel[subscriptionData.subscription]
   const requiredTierLevel = tierLevel[requiredTier]
 
   if (userTierLevel < requiredTierLevel) {
