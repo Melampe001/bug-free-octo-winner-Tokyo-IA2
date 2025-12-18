@@ -204,7 +204,7 @@ Add these in **Settings > Environment Variables**:
 - [ ] Domain added in Vercel (Settings > Domains)
 - [ ] DNS records configured at domain registrar:
   - [ ] A record: `@` → `76.76.21.21`
-  - [ ] CNAME record: `www` → `cname.vercel-dns.com`
+  - [ ] CNAME record: `www` → `cname.vercel-dns.com.` (or use Vercel-provided value)
 - [ ] Domain verification completed (green checkmark)
 - [ ] SSL certificate provisioned automatically
 - [ ] www redirect configured (www → apex or apex → www)

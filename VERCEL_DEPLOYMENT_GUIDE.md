@@ -267,8 +267,10 @@ Value: 76.76.21.21
 ```
 Type: CNAME
 Name: www
-Value: cname.vercel-dns.com
+Value: cname.vercel-dns.com.
 ```
+
+**Note:** Vercel will also provide a specific CNAME value in the dashboard after adding your domain. You can use either `cname.vercel-dns.com.` (with trailing dot) or the project-specific URL Vercel provides.
 
 #### Recommended Setup:
 Add both apex and www:
