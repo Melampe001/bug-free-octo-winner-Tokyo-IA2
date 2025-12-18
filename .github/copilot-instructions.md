@@ -203,8 +203,8 @@ bug-free-octo-winner-Tokyo-IA2/
 - Test with screen readers when implementing complex UI
 
 ## Additional Notes
-- When uncertain about implementation details, ask clarifying questions
-- Check existing patterns in the codebase before introducing new approaches
-- Consider scalability and maintainability in design decisions
-- Prioritize code readability and clarity over cleverness
-- Keep dependencies up to date but test thoroughly before upgrading major versions
+- When uncertain about implementation details, ask clarifying questions.
+- Check existing patterns in the codebase before introducing new approaches.
+- Consider scalability and maintainability in design decisions.
+- Prioritize code readability and clarity over cleverness.
+- Keep dependencies up to date but test thoroughly before upgrading major versions.
