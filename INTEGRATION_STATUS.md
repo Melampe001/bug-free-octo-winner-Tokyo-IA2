@@ -9,13 +9,17 @@ Este documento resume el estado de integración de las Pull Requests pendientes 
 | PR # | Título | Estado | Prioridad Sugerida |
 |------|--------|--------|-------------------|
 | #15 | Implement onboarding workflows for user creation | Draft | Media |
+| #14 | Integrate and merge commits (Este PR) | Draft | - |
 | #13 | Fix repository issues | Draft | Alta |
 | #12 | Configure instructions for Copilot coding agent | Draft | Media |
+| #11 | Set up Copilot instructions (Issue relacionado) | N/A | - |
 | #10 | Add minimal Vercel deployment files | Draft | Alta |
 | #9 | Add comprehensive Vercel deployment documentation | Draft | Media |
 | #8 | Add comprehensive documentation | Draft | Baja |
 | #7 | Standardize Stripe environment variable naming | Draft | Alta |
 | #6 | Add .env.local file for Supabase and Stripe | Draft | Media |
+
+> **Nota:** PR #11 es un issue, no una PR. PR #14 es esta PR de integración.
 
 ---
 
@@ -62,9 +66,8 @@ Este documento resume el estado de integración de las Pull Requests pendientes 
 ## ⚠️ Notas Importantes
 
 ### Dependencias entre PRs
-- PR #9 y #10 tienen contenido relacionado (Vercel deployment)
-- PR #6 y #7 tratan configuración de variables de entorno
-- Considerar combinar PRs relacionadas para evitar conflictos
+- **PR #9 y #10** (Vercel deployment): Se recomienda mergear #10 primero (configuración base) y luego #9 (documentación). Alternativamente, considerar combinar ambas PRs si hay conflictos significativos.
+- **PR #6 y #7** (variables de entorno): Mergear #7 primero (estandarización de nombres) y luego #6 (template). Si hay conflictos en archivos `.env`, revisar manualmente para unificar cambios.
 
 ### Acciones Recomendadas
 1. **Convertir PRs de Draft a Ready for Review** una vez validado el contenido
@@ -79,8 +82,9 @@ Este documento resume el estado de integración de las Pull Requests pendientes 
 
 ## 📊 Estado del Branch Main
 
-**Commit actual:** `76bb56f`
-**Último cambio:** Create VERCEL_ENV_SETUP.md
+**Último cambio conocido:** Create VERCEL_ENV_SETUP.md
+
+> **Nota:** Verificar el estado actual del branch Main antes de iniciar merges usando `git log Main --oneline -1`
 
 ### Archivos en Main:
 - `.devcontainer/` - Configuración de desarrollo
